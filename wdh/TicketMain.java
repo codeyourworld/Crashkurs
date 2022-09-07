@@ -21,6 +21,21 @@ public class TicketMain {
 //			System.out.println(t.calcPrice());
 		}
 		System.out.println("Der Gesamtpreis ist " + sum);
+		
+		Ball ball = new Ball();
+		if(ball instanceof IMovable) {
+			System.out.println("Der Ball ist IMovable");
+		}
+		if(ball instanceof IKickable) {
+			System.out.println("Der Ball ist IKickable");
+		}
+		
+		if(tickets[0] instanceof Schwimmbadticket) {
+			System.out.println("Schwimmbadticket");
+		}
+		if(tickets[0] instanceof Kinderticket) {
+			System.out.println("Schwimmbadticket");
+		}
 	}
 
 }

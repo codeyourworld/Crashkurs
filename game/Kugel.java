@@ -1,6 +1,8 @@
 package game;
 
-public class Kugel {
+import view.IGameObject;
+
+public class Kugel implements IGameObject {
 
 	private int velocity = 6;
 	private String icon = "";
@@ -29,7 +31,7 @@ public class Kugel {
 	}
 
 
-	public String getIcon() {
+	public String getImagePath() {
 		return icon;
 	}
 

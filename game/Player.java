@@ -1,6 +1,8 @@
 package game;
 
-public class Player {
+import view.IGameObject;
+
+public class Player implements IGameObject {
 
 	private String icon = "";
 	private int x = 0;
@@ -42,7 +44,7 @@ public class Player {
 		}
 	}
 
-	public String getIcon() {
+	public String getImagePath() {
 		return icon;
 	}
 

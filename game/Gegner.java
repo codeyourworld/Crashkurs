@@ -1,6 +1,8 @@
 package game;
 
-public class Gegner {
+import view.IGameObject;
+
+public class Gegner implements IGameObject{
 
 	private int velocity = 3;
 	private String icon = "";
@@ -19,6 +21,30 @@ public class Gegner {
 		this.y = y;
 		this.height = height;
 		this.width = width;
+	}
+
+	public int getVelocity() {
+		return velocity;
+	}
+
+	public String getImagePath() {
+		return icon;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
 	}
 	
 	
