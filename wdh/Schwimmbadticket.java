@@ -19,6 +19,5 @@ public class Schwimmbadticket extends Ticket {
 	public float calcPrice() {
 		return price;
 	}
-
 	
 }
