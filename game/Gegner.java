@@ -23,6 +23,10 @@ public class Gegner implements IGameObject{
 		this.width = width;
 	}
 
+	public void move() {
+		x += velocity;
+	}
+	
 	public int getVelocity() {
 		return velocity;
 	}
@@ -46,7 +50,10 @@ public class Gegner implements IGameObject{
 	public int getWidth() {
 		return width;
 	}
-	
+
+	public void setX(int x) {
+		this.x = x;
+	}
 	
 	
 }
