@@ -11,24 +11,38 @@ import javax.imageio.ImageIO;
 import view.GameFrameWork;
 
 public class Controller {
-
-	Gegner [] gegner = new Gegner[4];
+	
+	private Gegner [] gegner = new Gegner[4];
+	private int screenHeight = 0;
+	private int screenWidth = 0;
+	
 	
 	public Controller() {
 		GameFrameWork gui = new GameFrameWork();
 		setFullScreen(gui);
-
-		gegner[0] = new Gegner("assets\\ufo20.png", 100, 100, 40, 80);
-		gegner[1] = new Gegner("assets\\ufo20.png", 250, 100, 40, 80);
-		gegner[2] = new Gegner("assets\\ufo20.png", 500, 100, 40, 80);
-		gegner[3] = new Gegner("assets\\ufo20.png", 750, 100, 40, 80);
 		
-		Player player = new Player("assets\\ship22.png", 100, 100, 100, 100, 5, 0);
-		gui.addGameObject(player);
+		createPlayer(gui);
+		createGegner(gui);
+		
+	}
+
+
+	private void createGegner(GameFrameWork gui) {
+		int width = screenHeight / 12;
+		for(int i = 0; i < gegner.length; i++) {
+			gegner[i] = new Gegner("assets\\ufo20.png", screenWidth-2*width - i*width*10, width, width/2, width);
+		}
 		
 		for(Gegner g: gegner) {
 			gui.addGameObject(g);
 		}
+	}
+
+
+	private void createPlayer(GameFrameWork gui) {
+		int width = screenHeight / 8;
+		Player player = new Player("assets\\ship22.png", screenWidth/2 - width/2, screenHeight - 2*width, width, width, 5, 0);
+		gui.addGameObject(player);
 	}
 
 
@@ -47,8 +61,8 @@ public class Controller {
 
 	private void setFullScreen(GameFrameWork gui) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int screenHeight = screenSize.height;
-		int screenWidth = screenSize.width;
+		this.screenHeight = screenSize.height;
+		this.screenWidth = screenSize.width;
 		gui.setSize(screenWidth, screenHeight);
 	}
 	
