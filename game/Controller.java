@@ -2,9 +2,11 @@ package game;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -13,6 +15,7 @@ import view.ITickableListener;
 
 public class Controller implements ITickableListener {
 	
+	private ArrayList<Kugel> kugeln = new ArrayList();
 	private Gegner [] gegner = new Gegner[4];
 	private int screenHeight = 0;
 	private int screenWidth = 0;
@@ -30,6 +33,7 @@ public class Controller implements ITickableListener {
 		createPlayer(gui);
 		createGegner(gui);
 		
+			
 		
 		gui.addTick(this);
 	}
