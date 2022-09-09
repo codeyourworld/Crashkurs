@@ -11,19 +11,20 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import view.GameFrameWork;
+import view.IKeyboardListener;
 import view.ITickableListener;
 
-public class Controller implements ITickableListener {
+public class Controller implements ITickableListener, IKeyboardListener {
 	
 	private ArrayList<Kugel> kugeln = new ArrayList();
 	private Gegner [] gegner = new Gegner[4];
+	private Player player;
 	private int screenHeight = 0;
 	private int screenWidth = 0;
 	private int gegnerGap = 0;
-	
+	private GameFrameWork gui = new GameFrameWork();
 	
 	public Controller() {
-		GameFrameWork gui = new GameFrameWork();
 		setFullScreen(gui);
 		gegnerGap = screenHeight * 5/6;
 		
@@ -32,10 +33,12 @@ public class Controller implements ITickableListener {
 		
 		createPlayer(gui);
 		createGegner(gui);
-		
+
 			
 		
 		gui.addTick(this);
+		gui.addIKeyInput(this);
+		
 	}
 
 
@@ -53,7 +56,7 @@ public class Controller implements ITickableListener {
 
 	private void createPlayer(GameFrameWork gui) {
 		int width = screenHeight / 8;
-		Player player = new Player("assets\\ship22.png", screenWidth/2 - width/2, screenHeight - 2*width, width, width, 5, 0);
+		player = new Player("assets\\ship22.png", screenWidth/2 - width/2, screenHeight - 2*width, width, width, 5, 0);
 		gui.addGameObject(player);
 	}
 
@@ -85,6 +88,16 @@ public class Controller implements ITickableListener {
 			g.move();
 			resetEnemy(g);
 		}
+		for(Kugel k : kugeln) {
+			k.move();			
+		}
+		if(!kugeln.isEmpty()) {
+			if(kugeln.get(0).getY() + kugeln.get(0).getHeight() < 0) {
+				gui.removeGameObject(kugeln.get(0));
+				kugeln.remove(0);
+			}
+		}
+		
 	}
 	
 	private void resetEnemy(Gegner g) {
@@ -96,6 +109,32 @@ public class Controller implements ITickableListener {
 				}
 			}
 			g.setX(smallest - gegnerGap);
+		}
+	}
+
+
+	@Override
+	public int[] getKeys() {
+		
+//		int [] keys = new int[1];
+//		keys[0] = KeyEvent.VK_SPACE;
+		
+		int [] keys = {KeyEvent.VK_SPACE, KeyEvent.VK_R};		
+		
+		return keys;
+	}
+
+
+	@Override
+	public void keyDown(int key) {
+		if(key == KeyEvent.VK_SPACE) {
+			player.shoot();
+			kugeln.add(new Kugel("assets\\projectile06.png", 
+					player.getX() + player.getWidth()/4, 
+					player.getY() - player.getWidth()/2, 
+					player.getWidth()/2, 	
+					player.getWidth()/2));	
+			gui.addGameObject(kugeln.get(kugeln.size()-1));
 		}
 	}
 	
